@@ -70,7 +70,7 @@ Une API RESTful développée avec Laravel 12 permettant la génération et la ge
 
 1. Cloner le dépôt :
    ```
-   git clone [URL du dépôt]
+   git clone https://github.com/sunders458/usersGenerator-app.git
    cd usersGenerator-app
    ```
 

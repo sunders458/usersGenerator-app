@@ -1,0 +1,546 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Users Generator API",
+        "description": "API for generating and managing users",
+        "contact": {
+            "name": "API Support",
+            "email": "contact@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9090/api",
+            "description": "Local API server"
+        }
+    ],
+    "paths": {
+        "/auth": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Authenticate user and get JWT token",
+                "description": "Authenticate user and generate JWT token",
+                "operationId": "10931c1bdc6c19bfbfda612564746426",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "description": "Email or username",
+                                        "type": "string",
+                                        "example": "john.doe123"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Authentication successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "accessToken": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "The provided credentials are incorrect."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user and revoke token",
+                "description": "Logout user by revoking tokens",
+                "operationId": "6abf3b64a4bc7838d56346f05a5153af",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh JWT token",
+                "description": "Refresh a token.",
+                "operationId": "e7ab7446393758bb71fd1946a349e500",
+                "responses": {
+                    "200": {
+                        "description": "Token refreshed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "accessToken": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/generate": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Generate a list of random users",
+                "description": "Generate random users",
+                "operationId": "adec46a7ea7d1a27dd3850b642e925d6",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Number of users to generate (max 100)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JSON file with generated users data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "firstName": {
+                                                "type": "string",
+                                                "example": "John"
+                                            },
+                                            "lastName": {
+                                                "type": "string",
+                                                "example": "Doe"
+                                            },
+                                            "birthDate": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "1990-01-15"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "New York"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "US"
+                                            },
+                                            "avatar": {
+                                                "type": "string",
+                                                "format": "url",
+                                                "example": "https://example.com/avatar.jpg"
+                                            },
+                                            "company": {
+                                                "type": "string",
+                                                "example": "Acme Inc"
+                                            },
+                                            "jobPosition": {
+                                                "type": "string",
+                                                "example": "Developer"
+                                            },
+                                            "mobile": {
+                                                "type": "string",
+                                                "example": "+1234567890"
+                                            },
+                                            "username": {
+                                                "type": "string",
+                                                "example": "john.doe123"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "format": "email",
+                                                "example": "john.doe@example.com"
+                                            },
+                                            "password": {
+                                                "type": "string",
+                                                "example": "password123"
+                                            },
+                                            "role": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "admin",
+                                                    "user"
+                                                ],
+                                                "example": "user"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/users/batch": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Import users from a JSON file",
+                "description": "Import users from a JSON file",
+                "operationId": "5419a374ecb232b66610bf1599011a51",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "description": "JSON file containing users data to import",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Users imported successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "imported": {
+                                            "type": "integer",
+                                            "example": 8
+                                        },
+                                        "failed": {
+                                            "type": "integer",
+                                            "example": 2
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/users/me": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get authenticated user profile",
+                "description": "Get current authenticated user",
+                "operationId": "93b9d43bf6cc5193f51ebeb8863d054d",
+                "responses": {
+                    "200": {
+                        "description": "Current user data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "firstName": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "lastName": {
+                                            "type": "string",
+                                            "example": "Doe"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "example": "john.doe123"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "john.doe@example.com"
+                                        },
+                                        "birthDate": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "1990-01-15"
+                                        },
+                                        "city": {
+                                            "type": "string",
+                                            "example": "New York"
+                                        },
+                                        "country": {
+                                            "type": "string",
+                                            "example": "US"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "format": "url",
+                                            "example": "https://example.com/avatar.jpg"
+                                        },
+                                        "company": {
+                                            "type": "string",
+                                            "example": "Acme Inc"
+                                        },
+                                        "jobPosition": {
+                                            "type": "string",
+                                            "example": "Developer"
+                                        },
+                                        "mobile": {
+                                            "type": "string",
+                                            "example": "+1234567890"
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "enum": [
+                                                "admin",
+                                                "user"
+                                            ],
+                                            "example": "user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/{username}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user profile by username",
+                "description": "Get user by username",
+                "operationId": "6b3bd89433fb9c2aa4b80d8bbf570fa2",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username of the user to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "firstName": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "lastName": {
+                                            "type": "string",
+                                            "example": "Doe"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "example": "john.doe123"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "john.doe@example.com"
+                                        },
+                                        "birthDate": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "1990-01-15"
+                                        },
+                                        "city": {
+                                            "type": "string",
+                                            "example": "New York"
+                                        },
+                                        "country": {
+                                            "type": "string",
+                                            "example": "US"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "format": "url",
+                                            "example": "https://example.com/avatar.jpg"
+                                        },
+                                        "company": {
+                                            "type": "string",
+                                            "example": "Acme Inc"
+                                        },
+                                        "jobPosition": {
+                                            "type": "string",
+                                            "example": "Developer"
+                                        },
+                                        "mobile": {
+                                            "type": "string",
+                                            "example": "+1234567890"
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "enum": [
+                                                "admin",
+                                                "user"
+                                            ],
+                                            "example": "user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Unauthorized - Only admins can view other users profiles"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Entrer un token JWT au format Bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
+}

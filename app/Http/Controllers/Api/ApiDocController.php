@@ -12,16 +12,16 @@ use Illuminate\Http\JsonResponse;
  *     version="1.0.0",
  *     description="API for generating and managing users",
  *     @OA\Contact(
- *         email="contact@example.com",
+ *         email="amonelnathan@gmail.com",
  *         name="API Support"
  *     )
  * )
- * 
+ *
  * @OA\Server(
  *     url="http://localhost:9090/api",
  *     description="Local API server"
  * )
- * 
+ *
  * @OA\SecurityScheme(
  *     securityScheme="bearerAuth",
  *     type="http",
@@ -33,7 +33,7 @@ class ApiDocController extends Controller
 {
     /**
      * Show API documentation
-     * 
+     *
      * @return JsonResponse
      */
     public function documentation(): JsonResponse
@@ -42,7 +42,7 @@ class ApiDocController extends Controller
             app_path('Http/Controllers/Api'),
             app_path('Models'),
         ]);
-        
+
         return response()->json($openapi);
     }
 }

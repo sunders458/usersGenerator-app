@@ -69,30 +69,30 @@ Une API RESTful développée avec Laravel 12 permettant la génération et la ge
 ## Installation
 
 1. Cloner le dépôt :
-   ```bash
+   ```
    git clone [URL du dépôt]
    cd usersGenerator-app
    ```
 
 2. Installer les dépendances :
-   ```bash
+   ```
    composer install
    ```
 
 3. Configurer l'environnement :
-   ```bash
+   ```
    cp .env.example .env
    php artisan key:generate
    ```
 
 4. Configurer la base de données SQLite :
-   ```bash
+   ```
    touch database/database.sqlite
    php artisan migrate
    ```
 
 5. Lancer l'application sur le port 9090 :
-   ```bash
+   ```
    php artisan serve --port=9090
    ```
 
@@ -104,7 +104,7 @@ La documentation Swagger/OpenAPI est disponible à l'URL suivante :
 ## Tests
 
 Pour exécuter les tests :
-```bash
+```
 php artisan test
 ```
 

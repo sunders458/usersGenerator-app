@@ -114,15 +114,6 @@ php artisan test
 
 - **Laravel 12** : Le framework PHP le plus récent, offrant une grande flexibilité et des outils modernes
 - **SQLite** : Base de données légère, idéale pour ce type d'application sans besoin d'un SGBD séparé
-- **Sanctum** : Solution native de Laravel pour la gestion des tokens d'API et l'authentification (utilisée à la place de JWT pour plus de simplicité et une meilleure intégration avec Laravel)
+- **php-open-source-saver/jwt-auth** : Gestion de l’authentification basée sur des JWT (JSON Web Tokens) dans une API Laravel.
 - **L5-Swagger** : Intégration OpenAPI/Swagger pour documenter l'API
 - **Faker** : Bibliothèque pour générer des données fictives réalistes
-
-## Amélioration Future
-
-Pour une version future, les améliorations suivantes sont envisagées :
-- Correction des problèmes dans les endpoints de génération et d'import des utilisateurs
-- Ajout de validation plus stricte pour les imports
-- Support de pagination pour les listes d'utilisateurs
-- Possibilité d'export des utilisateurs existants
-- Interface d'administration pour gérer les utilisateurs
